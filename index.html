@@ -26,7 +26,10 @@ html, body {
   min-height: 100%;
   min-height: -webkit-fill-available;
 }
-html { scroll-behavior: smooth; }
+html { 
+  scroll-behavior: smooth;
+  background: var(--slate);
+}
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--off);
@@ -638,6 +641,7 @@ footer::before {
   .modal-cta { font-size: 12px; padding: 11px 18px; }
   .legal-modal { max-height: calc(100vh - 32px); }
   .legal-body { font-size: 12px; line-height: 1.6; }
+  .legal-body h4 { font-size: 13px; margin: 14px 0 4px; }
   .contact-form { gap: 10px; }
   .contact-field input, .contact-field textarea { padding: 10px 12px; font-size: 13px; }
   .contact-field label { font-size: 11px; }
