@@ -38,6 +38,7 @@ body {
   cursor: none;
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  overscroll-behavior: none;
 }
 
 /* ── CURSOR ── */
@@ -628,6 +629,8 @@ footer::before {
   footer { padding: 36px 20px; }
   .foot-top { flex-direction: column; gap: 20px; }
   .foot-bottom { flex-direction: column; gap: 14px; text-align: center; }
+  .modal-overlay { align-items: flex-start; padding-top: 12px; }
+  .modal { max-height: calc(100dvh - 24px); }
   #cur, #cur-ring { display: none; }
   body { cursor: auto; }
   .modal { padding: 20px 18px; border-radius: 20px; }
