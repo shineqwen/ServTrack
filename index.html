@@ -524,8 +524,8 @@ footer::before {
   overflow-y: auto;
 }
 .modal-overlay.open {
-  background: rgba(10,10,10,0.3);
-  backdrop-filter: blur(2px);
+  background: rgba(10,10,10,0.2);
+  backdrop-filter: blur(1px);
   pointer-events: all;
 }
 .modal {
@@ -767,7 +767,6 @@ footer::before {
   footer { padding: 36px 20px; }
   .foot-top { flex-direction: column; gap: 20px; }
   .foot-bottom { flex-direction: column; gap: 14px; text-align: center; }
-  .modal-overlay { align-items: flex-start; padding-top: 12px; }
   .modal { max-height: calc(100dvh - 24px); }
   #cur, #cur-ring { display: none; }
   body { cursor: auto; }
@@ -1042,7 +1041,7 @@ footer::before {
     <a href="#signup" class="foot-cta">Join the Waitlist →</a>
   </div>
   <div class="foot-bottom">
-    <span class="foot-copy">© 2026 ServTrack · Made with ♥ in Ireland 🇮🇪</span>
+    <span class="foot-copy">© 2026 ServTrack · Made with ♥ in Ireland</span>
     <div class="foot-links">
       <a href="#" onclick="openLegalModal('privacy'); return false;">Privacy</a>
       <a href="#" onclick="openLegalModal('terms'); return false;">Terms</a>
@@ -1230,15 +1229,16 @@ function doSignup() {
 document.getElementById('emailInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSignup(); });
 
 /* SCROLL REVEAL */
+const isMobile = window.innerWidth <= 768;
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: .12 });
+}, { threshold: isMobile ? 0.05 : 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 /* HOW CARD BAR */
 const barIo = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); barIo.unobserve(e.target); } });
-}, { threshold: .3 });
+}, { threshold: isMobile ? 0.05 : 0.3 });
 document.querySelectorAll('.how-card').forEach(c => barIo.observe(c));
 
 /* FEAT CARD TILT + GLOW */
@@ -1325,6 +1325,17 @@ function closeModal(e) {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+/* CLOSE ALL MODALS ON SCROLL */
+let scrollCloseTimer;
+window.addEventListener('scroll', () => {
+  clearTimeout(scrollCloseTimer);
+  scrollCloseTimer = setTimeout(() => {
+    closeModal(null);
+    closeContactModal(null);
+    closeLegalModal(null);
+  }, 60);
+}, { passive: true });
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
