@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ServTrack — Car Maintenance, Simplified</title>
+<title>ServTrack</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 ::selection {
@@ -348,35 +348,74 @@ nav.scrolled { background: rgba(245,244,241,.97); box-shadow: 0 1px 20px rgba(0,
 
 /* before/after */
 .before-after {
-  display: grid; grid-template-columns: 1fr 40px 1fr;
+  display: grid; grid-template-columns: 1fr 2px 1fr;
   align-items: stretch; margin-top: 56px;
   width: 100%; max-width: 640px;
   border-radius: 24px; overflow: hidden;
-  border: 1px solid var(--g100);
-  box-shadow: 0 8px 40px rgba(0,0,0,.07);
   position: relative; z-index: 1;
   opacity: 0; animation: riseIn .8s .65s cubic-bezier(.22,1,.36,1) forwards;
+  background: var(--slate);
+  border: 1.5px solid var(--g100);
+  box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.06);
 }
-.ba-col { padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; }
-.ba-col.old { background: #faf9f6; }
-.ba-col.new { background: var(--slate); }
+.ba-col { padding: 32px 28px; display: flex; flex-direction: column; gap: 6px; position: relative; }
+.ba-col.old { background: #1a1a1a; }
+.ba-col.new {
+  background: var(--slate);
+}
+.ba-col.new::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(224,21,21,.08) 0%, transparent 70%);
+  border-radius: 0;
+}
 .ba-label {
-  font-size: 10px; font-weight: 600; letter-spacing: .14em;
-  text-transform: uppercase; margin-bottom: 6px; display: block;
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; margin-bottom: 10px; display: block;
 }
-.ba-col.old .ba-label { color: var(--g300); }
+.ba-col.old .ba-label { color: rgba(255,255,255,.2); }
 .ba-col.new .ba-label { color: var(--red2); }
-.ba-item { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; line-height: 1.35; }
-.ba-col.old .ba-item { color: var(--g500); }
+.ba-item {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; font-weight: 500; line-height: 1.4;
+  padding: 8px 10px; border-radius: 10px;
+  transition: background .2s;
+}
+.ba-col.old .ba-item { color: rgba(255,255,255,.3); }
+.ba-col.old .ba-item:hover { background: rgba(255,255,255,.04); }
 .ba-col.new .ba-item { color: rgba(255,255,255,.85); }
-.ba-x    { font-size: 11px; width: 18px; text-align: center; color: #bbb; flex-shrink: 0; }
-.ba-check{ font-size: 11px; width: 18px; text-align: center; color: var(--red2); flex-shrink: 0; }
-.ba-divider {
+.ba-col.new .ba-item:hover { background: rgba(255,255,255,.05); }
+.ba-x {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
   display: flex; align-items: center; justify-content: center;
-  background: var(--g100);
+  font-size: 9px; color: rgba(255,255,255,.25); font-style: normal;
+}
+.ba-check {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(224,21,21,.15); border: 1px solid rgba(224,21,21,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--red2); font-style: normal;
+}
+.ba-divider {
+  background: rgba(224,21,21,.2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ba-divider::after {
+  content: 'VS';
+  position: absolute;
+  background: var(--slate);
+  border: 1px solid rgba(224,21,21,.35);
+  color: var(--red2);
+  font-size: 9px; font-weight: 800; letter-spacing: .1em;
+  padding: 5px 4px;
+  border-radius: 6px;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 9px; font-weight: 800; letter-spacing: .1em; color: var(--g300);
   writing-mode: vertical-rl;
+  text-orientation: mixed;
+  z-index: 2;
 }
 
 @keyframes riseIn {
@@ -457,7 +496,7 @@ nav.scrolled { background: rgba(245,244,241,.97); box-shadow: 0 1px 20px rgba(0,
 .promise .sec-tag { color: var(--red); }
 .promise .sec-h2 { color: var(--slate); }
 .promise-intro { font-size: 15px; color: var(--g500); max-width: 540px; line-height: 1.85; margin-bottom: 64px; font-weight: 300; }
-.promise-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.promise-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
 
 .promise-card {
   background: var(--white); border: 1.5px solid var(--g100);
@@ -830,11 +869,12 @@ footer::before {
   .hero { padding: 100px 20px 80px; }
   .hero h1 .red::after { bottom: 0px; height: 2px; }
   .hero-form-wrap { max-width: 100%; }
-  .hero-form { flex-direction: column; border-radius: 20px; padding: 12px; gap: 8px; }
-  .hero-form input { padding: 12px 14px; width: 100%; }
-  .hero-form button { width: 100%; border-radius: 14px; padding: 15px 20px; }
+  .hero-form { flex-direction: column; background: transparent; border: none; box-shadow: none; padding: 0; gap: 10px; }
+  .hero-form input { padding: 16px 22px; width: 100%; border-radius: 100px; border: 1.5px solid var(--g100); background: var(--white); box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+  .hero-form button { width: 100%; border-radius: 100px; padding: 16px 20px; font-size: 15px; }
   .before-after { grid-template-columns: 1fr; }
-  .ba-divider { width: 100%; height: 36px; writing-mode: horizontal-tb; }
+  .ba-divider { width: 100%; height: 2px; writing-mode: horizontal-tb; }
+  .ba-divider::after { writing-mode: horizontal-tb; padding: 4px 8px; border-radius: 6px; }
   .how, .promise, .features { padding: 80px 20px; }
   .how-grid, .promise-cards, .feat-grid { grid-template-columns: 1fr; }
   footer { padding: 36px 20px; }
@@ -900,7 +940,7 @@ footer::before {
       <div class="ba-item"><span class="ba-x">✕</span>Missed NCT &amp; services</div>
       <div class="ba-item"><span class="ba-x">✕</span>No service history</div>
     </div>
-    <div class="ba-divider">VS</div>
+    <div class="ba-divider"></div>
     <div class="ba-col new">
       <span class="ba-label">With ServTrack</span>
       <div class="ba-item"><span class="ba-check">✓</span>Knows your exact model</div>
@@ -944,7 +984,7 @@ footer::before {
 <section class="promise" id="promise">
   <div class="promise-inner">
     <span class="sec-tag reveal" style="color:var(--red)">Why ServTrack</span>
-    <h2 class="sec-h2 reveal d1" style="color:var(--slate)">Like a mechanic friend.<br>Always in your pocket.</h2>
+    <h2 class="sec-h2 reveal d1" style="color:var(--slate)">Built around your car.<br>Not every car.</h2>
     <p class="promise-intro reveal d2">Most car apps treat every vehicle the same. ServTrack doesn't. We combine manufacturer data, known model faults, and your personal service history to give you advice that's actually relevant — to your car, right now. And it's completely free, because we believe every driver deserves this.</p>
     <div class="promise-cards">
       <div class="promise-card reveal d1">
@@ -962,53 +1002,10 @@ footer::before {
         <h4>Garage network <span style="font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--red);opacity:.65;">· Coming soon</span></h4>
         <p>We're building a vetted network of Irish garages with upfront pricing and real reviews. Booking will be live later this year — no cold calls, ever.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="features-inner">
-    <span class="sec-tag reveal" style="color:var(--red)">Features</span>
-    <h2 class="sec-h2 reveal d1">Built around your car.<br>Not every car.</h2>
-    <div class="feat-grid">
-      <div class="feat-card reveal d1" data-modal="insights" onclick="openModal('insights')" >
-        <div class="feat-card-glow"></div>
-        <div class="feat-icon"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg></div>
-        <div class="feat-body">
-          <h3>Model-aware insights</h3>
-          <p>ServTrack knows your car's common faults, recall history, and manufacturer service schedule — not just the generic stuff.</p>
-        </div>
-        <button class="feat-arrow" onclick="event.stopPropagation(); openModal('insights')">→</button>
-      </div>
-      <div class="feat-card reveal d2" data-modal="reminders" onclick="openModal('reminders')" >
-        <div class="feat-card-glow"></div>
-        <div class="feat-icon"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-        <div class="feat-body">
-          <h3>Proactive reminders</h3>
-          <p>NCT, oil changes, tax, timing belts — we remind you at the right time, based on your actual mileage and car history.</p>
-        </div>
-        <button class="feat-arrow" onclick="event.stopPropagation(); openModal('reminders')">→</button>
-      </div>
-      <div class="feat-card reveal d1" data-modal="garages" onclick="openModal('garages')" >
-        <div class="feat-card-glow"></div>
-        <div class="feat-icon" style="position:relative;">
-          <svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div class="feat-body">
-          <h3>Garage booking <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--white);background:var(--red);border-radius:100px;padding:2px 8px;vertical-align:middle;opacity:.85;">Soon</span></h3>
-          <p>Verified local garages, upfront prices, real reviews. We're building this now — book in seconds when something needs attention.</p>
-        </div>
-        <button class="feat-arrow" onclick="event.stopPropagation(); openModal('garages')">→</button>
-      </div>
-      <div class="feat-card reveal d2" data-modal="history" onclick="openModal('history')" >
-        <div class="feat-card-glow"></div>
-        <div class="feat-icon"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg></div>
-        <div class="feat-body">
-          <h3>Full service history</h3>
-          <p>Every service, repair, and part change — logged and stored forever. Huge when it comes to selling your car.</p>
-        </div>
-        <button class="feat-arrow" onclick="event.stopPropagation(); openModal('history')">→</button>
+      <div class="promise-card reveal d1">
+        <div class="p-icon-wrap"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg></div>
+        <h4>Full service history</h4>
+        <p>Every service, repair, and part change — logged and stored forever. Verified, timestamped, and huge when it comes to selling your car.</p>
       </div>
     </div>
   </div>
